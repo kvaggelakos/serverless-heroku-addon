@@ -1,0 +1,92 @@
+
+service: serverless-heroku-addon
+
+plugins:
+  - serverless-webpack
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  timeout: 150
+  memorySize: 512
+  environment:
+    HEROKU_USERNAME: ${file(./addon-manifest.json):id}
+    HEROKU_PASSWORD: ${file(./addon-manifest.json):api.password}
+    HEROKU_RESOURCES_TABLE: heroku-resources-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - Fn::Join:
+          - ":"
+          - - "arn:aws:dynamodb"
+            - ${opt:region, self:provider.region}
+            - "*"
+            - table/${self:provider.environment.HEROKU_RESOURCES_TABLE}
+
+functions:
+  invoice:
+    handler: handler.test
+    events:
+      - http:
+          path: /test
+          method: get
+          cors: true
+
+  # Heroku
+  heroku_resources_create:
+    handler: handler.herokuResourcesCreate
+    events:
+      - http:
+          path: /heroku/resources
+          method: post
+          cors: true
+  heroku_resources_delete:
+    handler: handler.herokuResourcesDestroy
+    events:
+      - http:
+          path: /heroku/resources/{id}
+          method: delete
+          cors: true
+  heroku_resources_update:
+    handler: handler.herokuResourcesUpdate
+    events:
+      - http:
+          path: /heroku/resources/{id}
+          method: put
+          cors: true
+
+resources:
+  Resources:
+    herokuResourcesTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+        TableName: ${self:provider.environment.HEROKU_RESOURCES_TABLE}

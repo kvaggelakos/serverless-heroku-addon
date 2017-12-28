@@ -1,0 +1,40 @@
+{
+  "name": "serverless-heroku-addon",
+  "version": "1.0.0",
+  "description": "A template for making serverless heroku addons",
+  "dependencies": {
+    "aws-sdk": "^2.173.0"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "fs-extra": "^5.0.0",
+    "serverless-dynamodb-local": "^0.2.26",
+    "serverless-offline": "^3.16.0",
+    "serverless-webpack": "^4.2.0",
+    "webpack": "^3.10.0",
+    "webpack-plugin-copy": "^1.0.1"
+  },
+  "scripts": {
+    "deploy": "sls deploy -v",
+    "stack-create": "sls deploy -v",
+    "stack-destroy": "sls remove -v",
+    "start": "sls offline start",
+    "logs": "sls logs -f main -t",
+    "test": "ava test/**/*.test.js",
+    "test-watch": "npm run test -- --watch",
+    "test-ci": "npm run test -- --verbose"
+  },
+  "main": "handler.js",
+  "directories": {
+    "test": "test"
+  },
+  "ava": {
+    "require": "babel-register",
+    "babel": "inherit"
+  },
+  "author": "Kostas Vaggelakos <kostas@vaggelakos.com>",
+  "license": "MIT"
+}

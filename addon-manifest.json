@@ -1,0 +1,18 @@
+{
+  "id": "serverless-heroku-addon",
+  "api": {
+    "config_vars": [ "SERVERLESS_HEROKU_ADDON_KEY" ],
+    "requires": [],
+    "regions": [ "us", "eu" ],
+    "password": "password",
+    "sso_salt": "salt",
+    "production": {
+      "base_url": "https://yourapp.com/heroku/resources",
+      "sso_url": "https://yourapp.com/sso/login"
+    },
+    "test": {
+      "base_url": "http://localhost:3000/heroku/resources",
+      "sso_url": "http://localhost:3000/sso/login"
+    }
+  }
+}
