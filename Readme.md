@@ -84,7 +84,3 @@ All contributions are welcome. Make a pull request wiihooo 🤠
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* This project is heavily inspired from [aws-lambda-fmpeg](https://github.com/binoculars/aws-lambda-ffmpeg)
