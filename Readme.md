@@ -32,6 +32,7 @@ npm install
 4. Initialize your own heroku addon with:
 
 ```
+gem install kensa
 kensa init
 ```
 
@@ -47,7 +48,7 @@ npm run test
 
 To run heroku kensa tests run:
 
-`npm run start` and then separately run `npm run kensa`
+`npm run start` and then separately run `kensa test`
 
 ## Deployment
 
