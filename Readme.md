@@ -29,14 +29,19 @@ npm install -g serverless
 npm install
 ```
 
-4. Initialize your own heroku addon with:
+4. Install dynamodb serverless libs
+```
+sls dynamodb install
+```
+
+5. Initialize your own heroku addon with:
 
 ```
 gem install kensa
 kensa init
 ```
 
-5. Edit `addon-manifest.json` to fit your needs
+6. Edit `addon-manifest.json` to fit your needs
 
 ## Running the tests
 
