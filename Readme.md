@@ -1,5 +1,7 @@
 # ⚡ serverless-heroku-addon
 
+[![Build Status](https://travis-ci.org/kvaggelakos/serverless-heroku-addon.svg?branch=master)](https://travis-ci.org/kvaggelakos/serverless-heroku-addon)
+
 A starter template to provision heroku resources using serverless and dynamodb
 
 ## Features
